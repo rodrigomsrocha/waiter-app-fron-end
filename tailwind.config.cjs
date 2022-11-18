@@ -22,6 +22,12 @@ module.exports = {
       fontFamily: {
         sans: ['General Sans', ...defaultTheme.fontFamily.sans],
       },
+      maxWidth: {
+        base: '76rem',
+      },
+      fontSize: {
+        display: '2rem',
+      },
     },
   },
   plugins: [],
