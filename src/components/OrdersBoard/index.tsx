@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { Order } from '../../types/Order';
+import { OrderModal } from '../OrderModal';
 
 interface OrdersBoardProps {
   icon: string;
@@ -7,8 +9,22 @@ interface OrdersBoardProps {
 }
 
 export function OrdersBoard({ icon, title, orders }: OrdersBoardProps) {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+
+  function handleOpenModal(order: Order) {
+    setIsModalVisible(true);
+    setSelectedOrder(order);
+  }
+
+  function handleCloseModal() {
+    setIsModalVisible(false);
+    setSelectedOrder(null);
+  }
+
   return (
     <div className="p-4 border border-gray-300 border-opacity-40 rounded-2xl flex flex-col items-center justify-center flex-1">
+      <OrderModal visible={isModalVisible} order={selectedOrder} onClose={handleCloseModal} />
       <header className="p-2 text-sm flex items-center gap-2">
         <span>{icon}</span>
         <strong>{title}</strong>
@@ -19,6 +35,7 @@ export function OrdersBoard({ icon, title, orders }: OrdersBoardProps) {
           {orders.map((order) => (
             <button
               key={order._id}
+              onClick={() => handleOpenModal(order)}
               type="button"
               className="bg-white border border-gray-300 border-opacity-40 rounded-lg h-32 flex flex-col justify-center items-center gap-1"
             >
