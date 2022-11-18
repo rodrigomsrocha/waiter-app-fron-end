@@ -43,4 +43,7 @@
     @apply text-base;
     @apply text-gray-900;
   }
+  strong {
+    @apply font-semibold;
+  }
 }
